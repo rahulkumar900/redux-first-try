@@ -1,4 +1,4 @@
-import { nanoid } from '@reduxjs/toolkit'
+// import { nanoid } from '@reduxjs/toolkit'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -16,7 +16,6 @@ export default function AddPostform() {
     if (title && content) {
       dispatch(
         postAdded({
-          id: nanoid(),
           title,
           content,
         })
@@ -25,7 +24,7 @@ export default function AddPostform() {
       setContent('')
     }
   }
-
+  const canSave = Boolean(title) && Boolean(content)
   return (
     <>
       <section>
@@ -47,7 +46,7 @@ export default function AddPostform() {
             value={content}
             onChange={onContentChanged}
           />
-          <button type="button" onClick={onSavePostClicked}>
+          <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
             Save Post
           </button>
         </form>
